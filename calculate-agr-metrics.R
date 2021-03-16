@@ -39,7 +39,7 @@ get.Agr.Metrics <- function(x, y){
   # sum of squared differences (SSD)
   SSD <- sum((x - y)^2)
   # sum of squared (unsystematic) differences
-  SSDu <- sum(2*(h)^2) 
+  SSDu <- round(sum(2*(h)^2), digits = 12)
   # sum of squared (systematic) differences (as diff of both)
   SSDs <- SSD - SSDu
   
@@ -47,13 +47,13 @@ get.Agr.Metrics <- function(x, y){
   D <- sum((x - Xm)^2) + sum((y - Ym)^2) + n*(Xm - Ym)^2 + K
   
   # calc Lambda, the symmetric index of agreement
-  L <- 1 - SSD/D
+  L <- round(1 - SSD/D, digits = 12)
   
   # calc the unsystematic component of the index of agreement
-  L.unsys <- 1 - SSDu/D
+  L.unsys <- round(1 - SSDu/D, digits = 12)
   
   # calc the fraction of systematic differences that are systematic
-  f.sys <- SSDs/SSD
+  f.sys <- round(SSDs/SSD, digits = 12)
   
   b = (E$values[1] - S[1,1]) / S[1,2]
   a = Ym - b*Xm
