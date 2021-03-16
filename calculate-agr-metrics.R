@@ -18,7 +18,9 @@ get.Agr.Metrics <- function(x, y){
                                 'f.sys' = NA,
                                 'r' = NA, 
                                 'b' = NA,
-                                'a' = NA))}
+                                'a' = NA,
+                                'rmsd' = NA,
+                                'bias' = NA))}
   
   # Pearson moment-product coefficient of correlation
   r <- cor(x, y)
@@ -55,13 +57,22 @@ get.Agr.Metrics <- function(x, y){
   # calc the fraction of systematic differences that are systematic
   f.sys <- round(SSDs/SSD, digits = 12)
   
-  b = (E$values[1] - S[1,1]) / S[1,2]
-  a = Ym - b*Xm
+  b <- (E$values[1] - S[1,1]) / S[1,2]
+  a <- Ym - b*Xm
+  
+  # calc/report root mean square deviation (for comparison)
+  rmsd <- sqrt(SSD)
+  
+  # add standard bias (for comparison)
+  bias <- mean(y - x)
+  
   
   return(metrics = data.frame('L' = L, 
                               'L.unsys' = L.unsys,
                               'f.sys' = f.sys, 
                               'r' = r, 
                               'b' = b,
-                              'a' = a))
+                              'a' = a,
+                              'rmsd' = rmsd,
+                              'bias' = bias))
 }
